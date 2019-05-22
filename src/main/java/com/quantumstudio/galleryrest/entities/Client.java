@@ -1,14 +1,32 @@
 package com.quantumstudio.galleryrest.entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
+@Entity
 public class Client {
 
+    @Id
+    @GeneratedValue
     private long id;
+
+    @NotNull
+    @Size(min= 3)
     private String name;
+
+    @NotNull
+    @Size(min= 3)
     private String password;
-    private ArrayList<Purchase> purchaseList;
-    private ArrayList<Artist> artistList;
+
+    @ManyToOne
+    private List<Purchase> purchaseList;
+
+    @ManyToMany(mappedBy = "clientSet")
+    private Set<Artist> artistSet;
 
     public long getId() {
         return id;
@@ -26,19 +44,11 @@ public class Client {
         this.name = name;
     }
 
-    public ArrayList<Artist> getArtistList() {
-        return artistList;
-    }
-
-    public void setArtistList(ArrayList<Artist> artistList) {
-        this.artistList = artistList;
-    }
-
-    public ArrayList<Purchase> getPurchaseList() {
+    public List<Purchase> getPurchaseList() {
         return purchaseList;
     }
 
-    public void setPurchaseList(ArrayList<Purchase> purchaseList) {
+    public void setPurchaseList(List<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
     }
 
@@ -48,5 +58,14 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Set<Artist> getArtistSet() {
+        return artistSet;
+    }
+
+
+    public void setArtistSet(Set<Artist> artistSet) {
+        this.artistSet = artistSet;
     }
 }

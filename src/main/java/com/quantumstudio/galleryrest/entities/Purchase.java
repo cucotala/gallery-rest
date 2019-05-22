@@ -1,13 +1,29 @@
 package com.quantumstudio.galleryrest.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
+@Entity
 public class Purchase {
 
+	@Id
 	private String orderNumber;
+
+	@NotNull
 	private LocalDateTime date;
+
+	@NotNull
+	@Min(1)
 	private int quantity;
+
+	@ManyToOne
 	private Painting painting;
+
+	@ManyToOne
 	private Client client;
 
 	public String getOrderNumber() {

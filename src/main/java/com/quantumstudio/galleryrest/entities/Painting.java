@@ -1,15 +1,38 @@
 package com.quantumstudio.galleryrest.entities;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.Set;
 
+@Entity
 public class Painting {
 
+    @Id
+    @GeneratedValue
     private long id;
+
+    @NotNull
+    @Min(0)
     private int stock;
+
+    @NotNull
+    @Column(unique = true)
     private String name;
+
+    @NotNull
+    @Min(1)
     private double price;
+
+    @ManyToOne
     private Artist artist;
-    private ArrayList<Purchase> purchaseList;
+
+    @OneToMany
+    private Set<Purchase> purchaseList;
+
+    @ManyToOne
+    private Technique technique;
 
     public long getId() {
         return id;
@@ -51,11 +74,11 @@ public class Painting {
         this.artist = artist;
     }
 
-    public ArrayList<Purchase> getPurchaseList() {
+    public Set<Purchase> getPurchaseList() {
         return purchaseList;
     }
 
-    public void setPurchaseList(ArrayList<Purchase> purchaseList) {
+    public void setPurchaseList(Set<Purchase> purchaseList) {
         this.purchaseList = purchaseList;
     }
 }
